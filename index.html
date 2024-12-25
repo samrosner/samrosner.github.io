@@ -1,0 +1,123 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Optical Rectification Tensor from Symmetry</title>
+        <link rel="stylesheet" href="styles.css">
+        <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
+	    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
+        <script src="ref.js"></script>
+        <script src="scripts.js"></script>
+    </head>
+    <body onload="genTensor();pCalc()" onresize="pCalc()">
+    <h1 id="title">Optical Rectification Tensor Tool</h1>
+    <div class="flexContainer">
+        <div class="flexItem" id="pgSelect">
+            <h1>Select a point group:</h1>
+            <form>
+                <select name="ptgroup" id="ptgroup" onchange="genTensor()">
+                <option value="1">1</option>
+                <option value="-1">-1</option>
+                <option value="2">2</option>
+                <option value="m">m</option>
+                <option value="2/m">2/m</option>
+                <option value="222">222</option>
+                <option value="mm2">mm2</option>
+                <option value="mmm">mmm</option>
+                <option value="4">4</option>
+                <option value="-4">-4</option>
+                <option value="4/m">4/m</option>
+                <option value="422">422</option>
+                <option value="4mm">4mm</option>
+                <option value="-42m">-42m</option>
+                <option value="4/mmm">4/mmm</option>
+                <option value="3">3</option>
+                <option value="-3">-3</option>
+                <option value="32">32</option>
+                <option value="3m">3m</option>
+                <option value="-3m">-3m</option>
+                <option value="6">6</option>
+                <option value="-6">-6</option>
+                <option value="6/m">6/m</option>
+                <option value="622">622</option>
+                <option value="6mm">6mm</option>
+                <option value="-6m2">-6m2</option>
+                <option value="6/mmm">6/mmm</option>
+                <option value="23">23</option>
+                <option value="m-3">m-3</option>
+                <option value="432">432</option>
+                <option value="-43m">-43m</option>
+                <option value="m-3m">m-3m</option>
+                </select>
+            </form>
+        </div>
+        <div class="flexItem" id="ORtensorcontainer">
+            <h1 style="display:none;" id="forbid">Optical Rectification is forbidden by symmetry.</h1>
+            <table id="ORtensor">
+                <tr>
+                    <th style="background-color: white; border:none;"></th>
+                    <th class="tableHead">E<sub>x</sub></th>
+                    <th class="tableHead">E<sub>y</sub></th>
+                    <th class="tableHead">E<sub>z</sub></th>
+                    <th class="tableHead">E<sub>y</sub>E<sub>z</sub></th>
+                    <th class="tableHead">E<sub>x</sub>E<sub>z</sub></th>
+                    <th class="tableHead">E<sub>x</sub>E<sub>y</sub></th>
+                </tr>
+                <tr id="r1">
+                    <th class="tableHead">P<sub>x</sub></th>
+                    <th class="c1">0</th>
+                    <th class="c2">0</th>
+                    <th class="c3">0</th>
+                    <th class="c4">0</th>
+                    <th class="c5">0</th>
+                    <th class="c6">0</th>
+                </tr>
+                <tr id="r2">
+                    <th class="tableHead">P<sub>y</sub></th>
+                    <th class="c1">0</th>
+                    <th class="c2">0</th>
+                    <th class="c3">0</th>
+                    <th class="c4">0</th>
+                    <th class="c5">0</th>
+                    <th class="c6">0</th>
+                </tr>
+                <tr id="r3">
+                    <th class="tableHead">P<sub>z</sub></th>
+                    <th class="c1">0</th>
+                    <th class="c2">0</th>
+                    <th class="c3">0</th>
+                    <th class="c4">0</th>
+                    <th class="c5">0</th>
+                    <th class="c6">0</th>
+                </tr>
+            </table>
+        </div>
+        <div id="EfieldParams" class="flexItem">
+            <h2>Geometry Angle</h2>
+            <input type="text" value=0 id="geoAngle" onchange="pCalc()">
+            <h2>Polarization Angle (0 degrees is S polarization)</h2>
+            <input type="text" value=0 id="polAngle" onchange="pCalc()">
+            <h2>Electric Field Magnitude</h2>
+            <input type="text" value=1 id="magnitude" onchange="pCalc()">
+            <br><br>
+            <div id="EField">
+                <h2 style="display: inline;">E<sub>x</sub>=<div id="Ex" style="display: inline;">0</div></h2>
+                <h2 style="display: inline;">E<sub>y</sub>=<div id="Ey" style="display: inline;">0</div></h2>
+                <h2 style="display: inline;">E<sub>z</sub>=<div id="Ez" style="display: inline;">0</div></h2>
+            </div>
+        </div>
+        <div id="XParamShell" class="flexItem">
+            <h2>Enter Parameters to generate Plots</h2>
+            <div id="XParams"></div>
+        </div>
+        <div id="pCalc" class="flexItem">
+            <div id="pols">
+                <h2>P<sub>x</sub>=<div id="Px" style="display: inline;">0</div></h2>
+                <h2>P<sub>y</sub>=<div id="Py" style="display: inline;">0</div></h2>
+                <h2>P<sub>z</sub>=<div id="Pz" style="display: inline;">0</div></h2>
+            </div>
+            <div id='polarPlot'><!-- Plotly chart will be drawn inside this DIV --></div>
+        </div>
+    </div>
+    <footer><p>Copyright Samuel Rosner 2025; rosner3@illinois.edu</p></footer>
+    </body>
+</html>
