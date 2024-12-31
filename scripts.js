@@ -141,28 +141,8 @@ function EMcalcAngle(pAngleRad){
 
 function pCalc(){
     EMcalc();
-    var polarization=[0,0,0]
-    for(let i=0; i<position.length; i++){
-        let coef=document.getElementById("x"+String(i)).value
-        if (position[i][1]==1){
-            polarization[position[i][0]-1]+=coef*E[0]
-        }
-        else if (position[i][1]==2){
-            polarization[position[i][0]-1]+=coef*E[1]
-        }
-        else if (position[i][1]==3){
-            polarization[position[i][0]-1]+=coef*E[2]
-        }
-        else if (position[i][1]==4){
-            polarization[position[i][0]-1]+=coef*E[1]*E[2]
-        }
-        else if (position[i][1]==5){
-            polarization[position[i][0]-1]+=coef*E[0]*E[2]
-        }
-        else if (position[i][1]==6){
-            polarization[position[i][0]-1]+=coef*E[0]*E[1]
-        }
-    }
+    let pAngle=document.getElementById("polAngle").value*(Math.PI/180);
+    var polarization=pCalcAngle(pAngle);
     document.getElementById("Px").innerHTML=polarization[0];
     document.getElementById("Py").innerHTML=polarization[1];
     document.getElementById("Pz").innerHTML=polarization[2];
@@ -179,26 +159,34 @@ function pCalc(){
 
 function pCalcAngle(pAngle){
     let Ef=EMcalcAngle(pAngle);
-    let p=[0,0,0]
-    for(let i=0; i<position.length; i++){
-        let coef=document.getElementById("x"+String(i)).value
-        if (position[i][1]==1){
-            p[position[i][0]-1]+=coef*Ef[0]
-        }
-        else if (position[i][1]==2){
-            p[position[i][0]-1]+=coef*Ef[1]
-        }
-        else if (position[i][1]==3){
-            p[position[i][0]-1]+=coef*Ef[2]
-        }
-        else if (position[i][1]==4){
-            p[position[i][0]-1]+=coef*Ef[1]*Ef[2]
-        }
-        else if (position[i][1]==5){
-            p[position[i][0]-1]+=coef*Ef[0]*Ef[2]
-        }
-        else if (position[i][1]==6){
-            p[position[i][0]-1]+=coef*Ef[0]*Ef[1]
+    let p=[0,0,0];
+    for(let i=0; i<ORtensors[index].length;i++){
+        for(let j=0; j<ORtensors[index][i].length; j++){
+            if (ORtensors[index][i][j]!=0){
+                let pos=Math.abs(ORtensors[index][i][j])-1;
+                let coef=document.getElementById("x"+String(pos)).value;
+                if(ORtensors[index][i][j]<0){
+                    coef=coef*-1;
+                }
+                if (j==0){
+                    p[i]+=coef*Ef[0]
+                }
+                else if (j==1){
+                    p[i]+=coef*Ef[1]
+                }
+                else if (j==2){
+                    p[i]+=coef*Ef[2]
+                }
+                else if (j==3){
+                    p[i]+=coef*Ef[1]*Ef[2]
+                }
+                else if (j==4){
+                    p[i]+=coef*Ef[0]*Ef[2]
+                }
+                else if (j==5){
+                    p[i]+=coef*Ef[0]*Ef[1]
+                }
+            }
         }
     }
     return p;
