@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
     <head>
-        <title>Optical Rectification Tensor from Symmetry</title>
+        <title>Optical Tensors from Symmetry</title>
         <link rel="stylesheet" href="styles.css">
         <script src='https://cdn.plot.ly/plotly-2.35.2.min.js'></script>
 	    <script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
@@ -9,11 +9,10 @@
         <script src="scripts.js"></script>
     </head>
     <body onload="genTensor();pCalc()" onresize="pCalc()">
-    <h1 id="title">Optical Rectification Tensor Tool</h1>
+    <h1 id="title">Optical Tensor Tool</h1>
     <div class="flexContainer">
         <div class="flexItem" id="pgSelect">
             <h1>Select a point group:</h1>
-            <form>
                 <select name="ptgroup" id="ptgroup" onchange="genTensor()">
                 <option value="1">1</option>
                 <option value="-1">-1</option>
@@ -48,22 +47,28 @@
                 <option value="-43m">-43m</option>
                 <option value="m-3m">m-3m</option>
                 </select>
-            </form>
+            <h1>Select a property:</h1>
+                <select name="prop" id="prop" onchange="genTensor()">
+                <option value="OR">Optical Rectification</option>
+                <option value="SHG">Second Harmonic Generation</option>
+                <option value="Pockels">Pockels Effect</option>
+                <option value="Kerr">Kerr Effect</option>
+                </select>
         </div>
         <div class="flexItem" id="ORtensorcontainer">
             <h1 style="display:none;" id="forbid">Optical Rectification is forbidden by symmetry.</h1>
             <table id="ORtensor">
-                <tr>
+                <tr id="toprow">
                     <th style="background-color: white; border:none;"></th>
-                    <th class="tableHead">E<sub>x</sub></th>
-                    <th class="tableHead">E<sub>y</sub></th>
-                    <th class="tableHead">E<sub>z</sub></th>
+                    <th id="hex" class="tableHead">E<sub>x</sub></th>
+                    <th id="hey" class="tableHead">E<sub>y</sub></th>
+                    <th id="hez" class="tableHead">E<sub>z</sub></th>
                     <th class="tableHead">E<sub>y</sub>E<sub>z</sub></th>
                     <th class="tableHead">E<sub>x</sub>E<sub>z</sub></th>
                     <th class="tableHead">E<sub>x</sub>E<sub>y</sub></th>
                 </tr>
-                <tr id="r1">
-                    <th class="tableHead">P<sub>x</sub></th>
+                <tr class="datarow" id="r1">
+                    <th class="tableHead"></th>
                     <th class="c1">0</th>
                     <th class="c2">0</th>
                     <th class="c3">0</th>
@@ -71,8 +76,8 @@
                     <th class="c5">0</th>
                     <th class="c6">0</th>
                 </tr>
-                <tr id="r2">
-                    <th class="tableHead">P<sub>y</sub></th>
+                <tr class="datarow" id="r2">
+                    <th class="tableHead"></th>
                     <th class="c1">0</th>
                     <th class="c2">0</th>
                     <th class="c3">0</th>
@@ -80,8 +85,35 @@
                     <th class="c5">0</th>
                     <th class="c6">0</th>
                 </tr>
-                <tr id="r3">
-                    <th class="tableHead">P<sub>z</sub></th>
+                <tr class="datarow" id="r3">
+                    <th class="tableHead"></th>
+                    <th class="c1">0</th>
+                    <th class="c2">0</th>
+                    <th class="c3">0</th>
+                    <th class="c4">0</th>
+                    <th class="c5">0</th>
+                    <th class="c6">0</th>
+                </tr>
+                <tr class="datarow" id="r4">
+                    <th class="tableHead"></th>
+                    <th class="c1">0</th>
+                    <th class="c2">0</th>
+                    <th class="c3">0</th>
+                    <th class="c4">0</th>
+                    <th class="c5">0</th>
+                    <th class="c6">0</th>
+                </tr>
+                <tr class="datarow" id="r5">
+                    <th class="tableHead"></th>
+                    <th class="c1">0</th>
+                    <th class="c2">0</th>
+                    <th class="c3">0</th>
+                    <th class="c4">0</th>
+                    <th class="c5">0</th>
+                    <th class="c6">0</th>
+                </tr>
+                <tr class="datarow" id="r6">
+                    <th class="tableHead"></th>
                     <th class="c1">0</th>
                     <th class="c2">0</th>
                     <th class="c3">0</th>
@@ -114,8 +146,16 @@
                 <h2>P<sub>x</sub>=<div id="Px" style="display: inline;">0</div></h2>
                 <h2>P<sub>y</sub>=<div id="Py" style="display: inline;">0</div></h2>
                 <h2>P<sub>z</sub>=<div id="Pz" style="display: inline;">0</div></h2>
+                <h2>P<sub>x</sub>=<div id="Px" style="display: inline;">0</div></h2>
+                <h2>P<sub>y</sub>=<div id="Py" style="display: inline;">0</div></h2>
+                <h2>P<sub>z</sub>=<div id="Pz" style="display: inline;">0</div></h2>
             </div>
-            <div id='polarPlot'><!-- Plotly chart will be drawn inside this DIV --></div>
+            <div id="plots">
+            <div id='polarPlot' class="plot"><!-- Plotly chart will be drawn inside this DIV --></div>
+            <div id='polarPlotx' class="plot"><!-- Plotly chart will be drawn inside this DIV --></div>
+            <div id='polarPloty' class="plot"><!-- Plotly chart will be drawn inside this DIV --></div>
+            <div id='polarPlotz' class="plot"><!-- Plotly chart will be drawn inside this DIV --></div>
+            </div>
         </div>
     </div>
     <footer><p>Copyright Samuel Rosner 2025; rosner3@illinois.edu</p></footer>
