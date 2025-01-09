@@ -55,7 +55,7 @@
                 <option value="Kerr">Kerr Effect</option>
                 </select>
         </div>
-        <div class="flexItem" id="ORtensorcontainer">
+        <div class="flexItem" id="tensorcontainer">
             <h1 style="display:none;" id="forbid">Optical Rectification is forbidden by symmetry.</h1>
             <table id="ORtensor">
                 <tr id="toprow">
@@ -124,18 +124,28 @@
             </table>
         </div>
         <div id="EfieldParams" class="flexItem">
-            <h2>Geometry Angle</h2>
-            <input type="text" value=0 id="geoAngle" onchange="pCalc()">
-            <h2>Polarization Angle (0 degrees is S polarization)</h2>
-            <input type="text" value=0 id="polAngle" onchange="pCalc()">
-            <h2>Electric Field Magnitude</h2>
-            <input type="text" value=1 id="magnitude" onchange="pCalc()">
-            <br><br>
-            <div id="EField">
-                <h2 style="display: inline;">E<sub>x</sub>=<div id="Ex" style="display: inline;">0</div></h2>
-                <h2 style="display: inline;">E<sub>y</sub>=<div id="Ey" style="display: inline;">0</div></h2>
-                <h2 style="display: inline;">E<sub>z</sub>=<div id="Ez" style="display: inline;">0</div></h2>
-            </div>
+            <table>
+                <tr>
+                    <th id="einput">
+                        <h2>Geometry Angle (&theta;)</h2>
+                        <input type="text" value=0 id="geoAngle" onchange="pCalc()">
+                        <h2>Polarization Angle (&phi;)</h2>
+                        <input type="text" value=0 id="polAngle" onchange="pCalc()">
+                        <h2>Electric Field Magnitude</h2>
+                        <input type="text" value=1 id="magnitude" onchange="pCalc()">
+                    </th>
+                    <th>
+                        <img id="diagram" src="diagram.svg" alt="diagram which shows how the angles are oriented">
+                    </th>
+                </tr>
+            <tr>
+                <th id="EField">
+                    <h2 style="display: inline;">E<sub>x</sub>=<div id="Ex" style="display: inline;">0</div></h2>
+                    <h2 style="display: inline;">E<sub>y</sub>=<div id="Ey" style="display: inline;">0</div></h2>
+                    <h2 style="display: inline;">E<sub>z</sub>=<div id="Ez" style="display: inline;">0</div></h2>
+                </th>
+            </tr>
+            </table>
         </div>
         <div id="XParamShell" class="flexItem">
             <h2>Enter Parameters to generate Plots</h2>
