@@ -506,9 +506,9 @@ function pCalcAngleKerr(pAngle){
     for(let i=0; i<kerrtensors[index].length;i++){
         for(let j=0; j<kerrtensors[index][i].length; j++){
             if (kerrtensors[index][i][j]==37){
-                let coef1=document.getElementById("x1").value;
-                let coef2=document.getElementById("x2").value;
-                p[i]+=0.5*coef1-0.5*coef2;
+                let coef1=document.getElementById("x0").value;
+                let coef2=document.getElementById("x1").value;
+                p[i]+=(0.5*coef1-0.5*coef2)*Ef[0]*Ef[1];
             }
             else if (kerrtensors[index][i][j]!=0){
                 let pos=Math.abs(kerrtensors[index][i][j])-1;
