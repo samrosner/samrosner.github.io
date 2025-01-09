@@ -20,9 +20,9 @@ body{
 }
 
 .flexItem{
-    margin:0.3%;
+    margin:0.1%;
     padding:5px;
-    border:1px solid;
+    border:2px solid;
     border-radius: 5px;
 }
 
@@ -37,19 +37,31 @@ th{
 
 #pgSelect{
     text-align: center;
-    flex-grow: 1;
     width:25%;
+    flex-grow: 1;
+}
+
+#tensorcontainer{
+    text-align: center;
 }
 
 #EfieldParams{
     width: 48.5%;
 }
+#EfieldParams table{
+    width:100%;
+}
+
+#EfieldParams table tr th{
+    border:none;
+    padding: 10px;
+}
 
 #EField {
     width:50%;
-    margin-left: 25%;
     text-align: center;
-    background-color: grey;
+    background-color: lightgrey;
+    border:1px solid;
     border-radius: 5px;
     padding:5px;
 }
@@ -60,8 +72,17 @@ th{
     padding-right: 5%;
 }
 
+#einput{
+    width:50%;
+}
+
+#diagram{
+    width:50%;
+}
+
 #XParamShell{
-    width: 48.5%;
+    flex-grow:1;
+    width:40%;
 }
 
 #XParams{
@@ -90,9 +111,9 @@ th{
 }
 
 #pols {
-    width:50%;
-    margin-left: 25%;
-    background-color: grey;
+    width:25%;
+    margin-left: 37.5%;
+    background-color: lightgrey;
     border-radius: 5px;
     padding:5px;
     text-align: center;
