@@ -323,9 +323,9 @@ function EMcalc(){
     let pAngle=document.getElementById("polAngle").value*(Math.PI/180);
     let mag=document.getElementById("magnitude").value;
     E=[mag*(Math.cos(gAngle)*-Math.sin(pAngle)),mag*(Math.cos(pAngle)),mag*(Math.sin(gAngle)*-Math.sin(pAngle))];
-    if (Math.abs(E[0])<0.00001) E[0]=0;
-    if (Math.abs(E[1])<0.00001) E[1]=0;
-    if (Math.abs(E[2])<0.00001) E[2]=0;
+    E[0]=Math.trunc(E[0]*1000)/1000.0;
+    E[1]=Math.trunc(E[1]*1000)/1000.0;
+    E[2]=Math.trunc(E[2]*1000)/1000.0;
     document.getElementById("Ex").innerHTML=E[0];
     document.getElementById("Ey").innerHTML=E[1];
     document.getElementById("Ez").innerHTML=E[2];
@@ -345,12 +345,18 @@ function pCalc(){
     let pAngle=document.getElementById("polAngle").value;
     if (prop=="OR"||prop=="SHG"){
         let polarization=pCalcAngleOR(pAngle);
+        for(let i=0; i<3; i++){
+            polarization[i]=Math.trunc(polarization[i]*1000)/1000.0;
+        }
         document.getElementById("Px").innerHTML=polarization[0];
         document.getElementById("Py").innerHTML=polarization[1];
         document.getElementById("Pz").innerHTML=polarization[2];
     }
     else if(prop=="Pockels"){
         let pock=pCalcAnglePock(pAngle);
+        for(let i=0; i<6; i++){
+            pock[i]=Math.trunc(pock[i]*1000)/1000.0;
+        }
         document.getElementById("Pxx").innerHTML=pock[0];
         document.getElementById("Pyy").innerHTML=pock[1];
         document.getElementById("Pzz").innerHTML=pock[2];
@@ -360,6 +366,9 @@ function pCalc(){
     }
     else if(prop=="Kerr"){
         let k=pCalcAngleKerr(pAngle);
+        for(let i=0; i<6; i++){
+            k[i]=Math.trunc(k[i]*1000)/1000.0;
+        }
         document.getElementById("Pxx").innerHTML=k[0];
         document.getElementById("Pyy").innerHTML=k[1];
         document.getElementById("Pzz").innerHTML=k[2];
